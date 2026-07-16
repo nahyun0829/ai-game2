@@ -25,7 +25,6 @@ def start_game():
     st.session_state["score"] = 0
     st.session_state["checked"] = False
     st.session_state["game_started"] = True
-    st.session_state["user_answer"] = ""
 
 
 if "game_started" not in st.session_state:
@@ -62,7 +61,7 @@ if st.session_state["game_started"]:
     st.subheader(f"문제 {current_index + 1}/{len(quiz_words)}")
     st.markdown(f"### 뜻: **{meaning}**")
 
-    answer = st.text_input("영어로 써보세요", key="user_answer")
+    answer = st.text_input("영어로 써보세요", key=f"answer_{current_index}")
 
     if st.button("✅ 정답 확인", use_container_width=True):
         if not answer.strip():
@@ -80,6 +79,5 @@ if st.session_state["game_started"]:
         if st.button("➡️ 다음 문제", use_container_width=True):
             st.session_state["current_index"] += 1
             st.session_state["checked"] = False
-            st.session_state["user_answer"] = ""
 
     st.write(f"현재 점수: {score}점")
