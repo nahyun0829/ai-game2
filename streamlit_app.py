@@ -1,7 +1,7 @@
 import random
 import streamlit as st
 
-st.set_page_config(page_title="영단어 게임", page_icon="📚", layout="centered")
+st.set_page_config(page_title="영단어 & BTS", page_icon="✨", layout="centered")
 
 WORDS = [
     ("friend", "친구"),
@@ -30,17 +30,22 @@ def start_game():
 if "game_started" not in st.session_state:
     start_game()
 
-st.title("📚 중학생 영단어 게임")
-st.write("한국어 뜻을 보고 영어 단어를 맞혀보세요. 쉬운 단어로 만든 게임입니다!")
+st.title("🌟 영어 공부 + BTS 소개")
+st.write("영단어 게임도 하고 BTS도 알아보세요!")
 
-with st.sidebar:
-    st.header("게임 방법")
-    st.write("1. 뜻을 읽고 영어 단어를 입력해요.")
-    st.write("2. 정답 확인 버튼을 눌러요.")
-    st.write("3. 다음 문제로 넘어가요.")
-    st.button("🎮 새 게임 시작", on_click=start_game, use_container_width=True)
+word_tab, bts_tab = st.tabs(["📚 영단어 게임", "🎤 BTS 소개"])
 
-if st.session_state["game_started"]:
+with word_tab:
+    st.subheader("영단어 게임")
+    st.write("한국어 뜻을 보고 영어 단어를 맞혀보세요.")
+
+    with st.sidebar:
+        st.header("게임 방법")
+        st.write("1. 뜻을 읽고 영어 단어를 입력해요.")
+        st.write("2. 정답 확인 버튼을 눌러요.")
+        st.write("3. 다음 문제로 넘어가요.")
+        st.button("🎮 새 게임 시작", on_click=start_game, use_container_width=True)
+
     quiz_words = st.session_state["quiz_words"]
     current_index = st.session_state["current_index"]
     score = st.session_state["score"]
@@ -81,3 +86,24 @@ if st.session_state["game_started"]:
             st.session_state["checked"] = False
 
     st.write(f"현재 점수: {score}점")
+
+with bts_tab:
+    st.subheader("BTS 소개")
+    st.write("BTS는 방탄소년단으로, 음악과 메시지로 많은 사람들에게 사랑받는 그룹입니다.")
+    st.write("멤버들은 각자 다른 매력을 가지고 있어요.")
+
+    members = [
+        ("RM", "리더", "멤버들을 잘 이끌어요."),
+        ("Jin", "서브 보컬", "따뜻한 목소리로 유명해요."),
+        ("Suga", "래퍼", "감각적인 가사로 유명해요."),
+        ("J-Hope", "메인 댄서", "에너지 넘치는 춤이 멋져요."),
+        ("Jimin", "메인 댄서", "유려한 춤과 보컬이 좋아요."),
+        ("V", "서브 보컬", "부드러운 목소리가 매력적이에요."),
+        ("Jungkook", "메인 보컬", "강한 목소리와 춤실력이 뛰어나요."),
+    ]
+
+    for name, role, description in members:
+        st.markdown(f"- **{name}** ({role}) : {description}")
+
+    st.info("BTS는 '작은 것에서 시작해 큰 꿈을 이루자'라는 메시지를 전해요.")
+    st.write("BTS의 음악을 들으면 영어와 한국어를 함께 배우는 재미도 있어요.")
